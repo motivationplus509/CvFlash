@@ -1,0 +1,328 @@
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CV Master Pro</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer" async></script>
+</head>
+<body>
+    <div class="top-bar bg-dark text-white p-2">
+        <div class="container-fluid d-flex justify-content-between align-items-center">
+            <div class="d-flex align-items-center">
+                <div class="form-check form-switch me-3">
+                    <input class="form-check-input" type="checkbox" role="switch" id="darkModeToggle">
+                    <label class="form-check-label" for="darkModeToggle"><i class="fa-solid fa-moon"></i></label>
+                </div>
+                <select id="language-selector" class="form-select form-select-sm me-3" style="width: auto;">
+                    <option value="fr">Français</option>
+                    <option value="en">English</option>
+                    <option value="es">Español</option>
+                    <option value="pt">Português</option>
+                    <option value="ht">Kreyòl Ayisyen</option>
+                </select>
+                <span id="user-info" class="text-white me-3 d-none"></span>
+                <button id="login-btn" class="btn btn-outline-light btn-sm me-2" data-translate-key="login" data-bs-toggle="modal" data-bs-target="#loginModal">Connexion</button>
+                <button id="signup-btn" class="btn btn-light btn-sm me-2" data-translate-key="signup" data-bs-toggle="modal" data-bs-target="#signupModal">S'inscrire</button>
+                <button id="logout-btn" class="btn btn-warning btn-sm d-none" data-translate-key="logout">Déconnexion</button>
+            </div>
+            <div id="date-time-container" class="fs-small"></div>
+        </div>
+    </div>
+    <header class="bg-dark text-white text-center p-3">
+        <div class="container d-flex align-items-center justify-content-center">
+            <img src="logo.png" alt="CV Master Pro Logo" id="logo">
+            <h1 data-translate-key="main_title">CV Master Pro</h1>
+        </div>
+        <p class="lead" data-translate-key="subtitle">Créez un CV professionnel en quelques minutes.</p>
+        <div class="scrolling-container">
+             <div class="scrolling-text" data-translate-key="scrolling_message">Créez le CV de vos rêves... Mettez en valeur vos compétences... Décrochez le job idéal !</div>
+        </div>
+    </header>
+
+    <main class="container-fluid mt-4" id="main-content" style="visibility: hidden;">
+        <div class="row">
+            <!-- Kolòn Fòm (Goch) -->
+            <div class="col-lg-5" id="editor-column">
+                <div class="editor-section p-4 rounded shadow-sm">
+                    <h2 class="mb-4" data-translate-key="create_cv_title">Créez votre CV</h2>
+
+                    <!-- Enfòmasyon Pèsonèl -->
+                    <div class="mb-3">
+                        <h3 class="section-title" data-translate-key="personal_info">Informations Personnelles</h3>
+                        <div class="mb-3">
+                            <label for="photo-upload" class="form-label" data-translate-key="identity_photo">Photo d'identité</label>
+                            <input class="form-control" type="file" id="photo-upload" accept="image/*">
+                        </div>
+                        <input type="text" id="name" class="form-control mb-2" placeholder="Nom complet" data-translate-key-placeholder="full_name_placeholder">
+                        <input type="text" id="title" class="form-control mb-2" placeholder="Titre Professionnel (ex: Développeur, Manager)" data-translate-key-placeholder="job_title_placeholder">
+                        <input type="email" id="email" class="form-control mb-2" placeholder="Adresse e-mail" data-translate-key-placeholder="email_placeholder">
+                        <input type="tel" id="phone" class="form-control mb-2" placeholder="Numéro de téléphone" data-translate-key-placeholder="phone_placeholder">
+                        <input type="text" id="address" class="form-control mb-2" placeholder="Adresse" data-translate-key-placeholder="address_placeholder">
+                        <div class="mb-2">
+                            <label for="dob" class="form-label" data-translate-key="date_of_birth">Date de naissance</label>
+                            <input type="date" id="dob" class="form-control">
+                        </div>
+                        <div class="mb-2">
+                            <label for="nationality" class="form-label" data-translate-key="nationality">Nationalité</label>
+                            <input type="text" id="nationality" class="form-control" data-translate-key-placeholder="nationality_placeholder">
+                        </div>
+                        <textarea id="about" class="form-control" placeholder="Un court paragraphe sur vous" data-translate-key-placeholder="about_placeholder"></textarea>
+                    </div>
+
+                    <!-- Objectif -->
+                    <div class="mb-3">
+                        <h3 class="section-title" data-translate-key="objective">Objectif</h3>
+                        <textarea id="objective" class="form-control" placeholder="Décrivez votre objectif de carrière" data-translate-key-placeholder="objective_placeholder"></textarea>
+                    </div>
+
+                    <!-- Eksperyans Pwofesyonèl -->
+                    <div class="mb-3">
+                        <h3 class="section-title" data-translate-key="work_experience">Expérience Professionnelle</h3>
+                        <div id="experience-list">
+                            <!-- Les formulaires seront ajoutés par JS ici -->
+                        </div>
+                        <button id="add-experience" class="btn btn-outline-primary btn-sm" data-translate-key="add_experience">+ Ajouter une expérience</button>
+                    </div>
+
+                    <!-- Edikasyon -->
+                    <div class="mb-3">
+                        <h3 class="section-title" data-translate-key="education">Éducation</h3>
+                        <div id="education-list">
+                            <!-- Les formulaires seront ajoutés par JS ici -->
+                        </div>
+                        <button id="add-education" class="btn btn-outline-primary btn-sm" data-translate-key="add_education">+ Ajouter une formation</button>
+                    </div>
+
+                    <!-- Konpetans -->
+                    <div class="mb-3">
+                        <h3 class="section-title" data-translate-key="skills">Compétences</h3>
+                        <input type="text" id="skills" class="form-control" placeholder="Séparez les compétences par une virgule (ex: HTML, CSS, JavaScript)" data-translate-key-placeholder="skills_placeholder">
+                    </div>
+
+                    <!-- Langues -->
+                    <div class="mb-3">
+                        <h3 class="section-title" data-translate-key="languages">Langues</h3>
+                        <div id="languages-list">
+                            <!-- Les formulaires de langue seront ajoutés par JS ici -->
+                        </div>
+                        <button id="add-language" class="btn btn-outline-primary btn-sm" data-translate-key="add_language">+ Ajouter une langue</button>
+                    </div>
+
+                    <!-- Tèm & Koulè -->
+                    <div class="mb-4">
+                        <h3 class="section-title" data-translate-key="theme_colors">Thème & Couleurs</h3>
+                        <div class="d-flex align-items-center">
+                             <label for="theme-color" class="form-label me-2" data-translate-key="theme_color_label">Couleur du thème :</label>
+                             <input type="color" id="theme-color" class="form-control form-control-color" value="#0d6efd">
+                        </div>
+                    </div>
+                    
+                    <!-- Bouton Telechaje -->
+                    <div class="d-grid">
+                        <button id="download-pdf" class="btn btn-primary btn-lg" data-translate-key="download_pdf">Télécharger le CV en PDF</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Kolòn Preview (Adwat) -->
+            <div class="col-lg-7" id="preview-column">
+                <div id="cv-preview-container" class="shadow-lg">
+                    <div id="cv-preview">
+                        <!-- Header CV -->
+                        <header id="cv-header" class="text-white p-4 text-center">
+                            <h1 id="preview-name-container"><span data-translate-key="cv_title">Curriculum Vitae de</span> <span id="preview-name" data-translate-key-default="preview_name_default">Votre Nom Complet</span></h1>
+                            <h2 id="preview-title" class="lead" data-translate-key-default="preview_title_default">Titre Professionnel</h2>
+                        </header>
+                        
+                        <div class="d-flex">
+                             <!-- Kolòn Goch CV -->
+                            <div class="cv-sidebar p-4">
+                                <div class="text-center">
+                                     <img id="preview-photo" src="" alt="Identity Photo">
+                                </div>
+                                <section>
+                                    <h4 class="cv-section-title" data-translate-key="contact">Contact</h4>
+                                    <p id="preview-phone"></p>
+                                    <p id="preview-email"></p>
+                                    <p id="preview-address"></p>
+                                    <p id="preview-dob-container" style="display: none;"><strong data-translate-key="date_of_birth">Date de naissance:</strong> <span id="preview-dob"></span></p>
+                                    <p id="preview-nationality-container" style="display: none;"><strong data-translate-key="nationality">Nationalité:</strong> <span id="preview-nationality"></span></p>
+                                </section>
+                                <section>
+                                    <h4 class="cv-section-title" data-translate-key="skills">Compétences</h4>
+                                    <div id="preview-skills"></div>
+                                </section>
+                                <section>
+                                    <h4 class="cv-section-title" data-translate-key="languages">Langues</h4>
+                                    <div id="preview-languages-list"></div>
+                                </section>
+                            </div>
+
+                            <!-- Kontni Prensipal CV -->
+                            <div class="cv-main-content p-4">
+                                <section class="mb-4">
+                                    <h3 class="cv-section-title-main" data-translate-key="objective">Objectif</h3>
+                                    <p id="preview-objective"></p>
+                                </section>
+                                <section class="mb-4">
+                                    <h3 class="cv-section-title-main" data-translate-key="about_me">À propos de moi</h3>
+                                    <p id="preview-about"></p>
+                                </section>
+                                <section class="mb-4">
+                                    <h3 class="cv-section-title-main" data-translate-key="work_experience">Expérience Professionnelle</h3>
+                                    <div id="preview-experience-list"></div>
+                                </section>
+                                <section>
+                                    <h3 class="cv-section-title-main" data-translate-key="education">Éducation</h3>
+                                    <div id="preview-education-list"></div>
+                                </section>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Login Modal -->
+    <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="loginModalLabel" data-translate-key="login_modal_title">Connexion</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="login-alert" class="alert alert-danger d-none" role="alert"></div>
+                    <form id="login-form">
+                        <div class="mb-3">
+                            <label for="loginEmail" class="form-label" data-translate-key="email_address">Adresse e-mail</label>
+                            <input type="email" class="form-control" id="loginEmail" data-translate-key-placeholder="email_placeholder" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="loginPassword" class="form-label" data-translate-key="password">Mot de passe</label>
+                            <input type="password" class="form-control" id="loginPassword" data-translate-key-placeholder="password_placeholder" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100" data-translate-key="login_now">Se connecter</button>
+                    </form>
+                </div>
+                <div class="modal-footer justify-content-center">
+                    <p class="mb-0"><span data-translate-key="no_account">Vous n'avez pas de compte ?</span> <a href="#" data-bs-toggle="modal" data-bs-target="#signupModal" data-bs-dismiss="modal" data-translate-key="signup_now">S'inscrire</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Signup Modal -->
+    <div class="modal fade" id="signupModal" tabindex="-1" aria-labelledby="signupModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="signupModalLabel" data-translate-key="signup_modal_title">S'inscrire</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="signup-alert" class="alert alert-danger d-none" role="alert"></div>
+                    <form id="signup-form">
+                        <div class="mb-3">
+                             <label for="signupName" class="form-label" data-translate-key="full_name">Nom complet</label>
+                             <input type="text" class="form-control" id="signupName" data-translate-key-placeholder="full_name_placeholder" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="signupEmail" class="form-label" data-translate-key="email_address">Adresse e-mail</label>
+                            <input type="email" class="form-control" id="signupEmail" data-translate-key-placeholder="email_placeholder" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="signupPassword" class="form-label" data-translate-key="password">Mot de passe</label>
+                            <input type="password" class="form-control" id="signupPassword" data-translate-key-placeholder="password_placeholder" required minlength="6">
+                        </div>
+                         <div class="mb-3">
+                            <label for="confirmPassword" class="form-label" data-translate-key="confirm_password">Confirmez le mot de passe</label>
+                            <input type="password" class="form-control" id="confirmPassword" data-translate-key-placeholder="confirm_password_placeholder" required minlength="6">
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100" data-translate-key="create_account">Créer un compte</button>
+                    </form>
+                </div>
+                <div class="modal-footer justify-content-center">
+                     <p class="mb-0"><span data-translate-key="has_account">Vous avez déjà un compte ?</span> <a href="#" data-bs-toggle="modal" data-bs-target="#loginModal" data-bs-dismiss="modal" data-translate-key="login_now">Se connecter</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="bg-dark text-white pt-5 pb-4 mt-5">
+        <div class="container text-center text-md-start">
+            <div class="row text-center text-md-start">
+
+                <!-- Column 1: About -->
+                <div class="col-md-3 col-lg-3 col-xl-3 mx-auto mt-3">
+                    <h5 class="text-uppercase mb-4 fw-bold text-primary">CV Master Pro</h5>
+                    <p data-translate-key="footer_about">
+                        Notre mission est de vous aider à créer un CV percutant qui met en valeur vos compétences et vous ouvre les portes de votre carrière de rêve.
+                    </p>
+                </div>
+
+                <!-- Column 2: Quick Links -->
+                <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mt-3">
+                    <h5 class="text-uppercase mb-4 fw-bold text-primary" data-translate-key="footer_links_title">Liens Rapides</h5>
+                    <p><a href="#" class="text-white" data-translate-key="footer_link_templates">Modèles</a></p>
+                    <p><a href="#" class="text-white" data-translate-key="footer_link_features">Fonctionnalités</a></p>
+                    <p><a href="#" class="text-white" data-translate-key="footer_link_help">Aide</a></p>
+                </div>
+
+                <!-- Column 3: Legal -->
+                <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mt-3">
+                    <h5 class="text-uppercase mb-4 fw-bold text-primary" data-translate-key="footer_legal_title">Légal</h5>
+                    <p><a href="#" class="text-white" data-translate-key="footer_link_privacy">Politique de confidentialité</a></p>
+                    <p><a href="#" class="text-white" data-translate-key="footer_link_terms">Conditions d'utilisation</a></p>
+                    <p><a href="#" class="text-white" data-translate-key="footer_link_contact">Nous Contacter</a></p>
+                </div>
+
+                <!-- Column 4: Newsletter -->
+                 <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mt-3">
+                    <h5 class="text-uppercase mb-4 fw-bold text-primary" data-translate-key="footer_newsletter_title">Newsletter</h5>
+                    <p data-translate-key="footer_newsletter_text">Restez à jour avec nos dernières fonctionnalités et offres.</p>
+                    <form id="newsletter-form" class="d-flex">
+                        <input type="email" class="form-control" placeholder="Adresse e-mail" data-translate-key-placeholder="email_placeholder" required>
+                        <button class="btn btn-primary ms-2" type="submit" data-translate-key="subscribe">S'abonner</button>
+                    </form>
+                    <div id="newsletter-feedback" class="form-text mt-2"></div>
+                </div>
+            </div>
+
+            <hr class="my-4">
+
+            <div class="row align-items-center">
+                <!-- Copyright -->
+                <div class="col-md-7 col-lg-8">
+                    <p class="mb-3 mb-md-0" data-translate-key="footer_copyright">&copy; 2024 CV Master Pro. Tous droits réservés.</p>
+                </div>
+                <hr>
+                <div class="row align-items-center">
+                    <h6>Ce sit a été créer par Developpeur Robensonn pierre</h6><br/>
+                    <h6>contact:+5549999931125 / +50937327180 / email:pierrerobensonn7@gmail.com</h6>
+                </div>
+                
+                <!-- Social Media -->
+                <div class="col-md-5 col-lg-4">
+                    <div class="text-center text-md-end">
+                        <a href="#" class="text-white me-4"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="text-white me-4"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-white me-4"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" class="text-white"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script type="module" src="script.js"></script>
+</body>
+</html>
